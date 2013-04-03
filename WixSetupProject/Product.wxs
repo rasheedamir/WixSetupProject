@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <!--
+    Windows Installer is using five properties from the Property table in order to distinguish installed applications from each other.
+    
+    Here is the list of required 5 properties:
+
+    1. ProductCode - Unique identifier for particular product release (GUID).
+    2. ProductVersion - Version of the product.  The format of this string is: major.minor.build.
+    3. ProductLanguage - Numeric language identifier (LANGID) installer will use for any strings in the user interface that are not authored in the database. This value must be one of the languages listed in the Template Summary property in the Summary Information stream.
+    4. ProductName - The name of the application.
+    5. Manufacturer - The name of the manufacturer of the product.
+    
+    It is highly recommended to add the UpgradeCode property to support future upgrades to the product.
+  -->
+	<Product 
+          Id="*" 
+          Name="WixSetupProject" 
+          Language="1033" 
+          Version="1.0.0.0" 
+          Manufacturer="R2M"
+          UpgradeCode="4ee378e5-cf2a-434a-a2fe-8f5841016b8e">
+		
+    <!--     
+    Package code is represented by the Id attribute and must be unique for every package.    
+    -->
+    <Package 
+            Id="*"
+            Description="Minimal Windows Installer Sample"
+            Comments="This installer database contains the logic and data required to install Minimal Windows Installer Sample."            
+            InstallerVersion="200" 
+            Languages="1033"
+            InstallPrivileges="elevated"
+            Compressed="yes" 
+            InstallScope="perMachine" 
+            Manufacturer="R2M"/>
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="WixSetupProject" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="WixSetupProject" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+			<Component Guid="" Id="ProductComponent">
+				<!-- TODO: Insert files, registry keys, and other resources here. -->
+        <CreateFolder/>
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>
